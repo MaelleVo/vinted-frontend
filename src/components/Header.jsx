@@ -21,7 +21,7 @@ const Header = ({ search, setSearch }) => {
     <>
       <div className="navbar container">
         <Link to="/">
-          <img src="logo-vinted.png" alt="logo" />
+          <img src="/logo-vinted.png" alt="logo" />
         </Link>
         <div className="search-input">
           <FontAwesomeIcon className="icon-search" icon="magnifying-glass" />
