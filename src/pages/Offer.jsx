@@ -32,7 +32,7 @@ const Offer = () => {
   ) : (
     <div className="offer">
       <section className="offer-section container">
-        <aside>
+        <aside className="product-picture">
           <img
             className="picture-product"
             src={offer.product_image.secure_url}
@@ -40,7 +40,7 @@ const Offer = () => {
           />
         </aside>
         <aside className="product-description">
-          {/* <p>the id id : {id}</p> */}
+          {/* <p>the id is : {id}</p> */}
           <p className="price">{offer.product_price}€</p>
           <div className="descriptions">
             {offer.product_details.map((description, index) => {
@@ -76,15 +76,3 @@ const Offer = () => {
 };
 
 export default Offer;
-
-{
-  /* <p>MARQUE : {offer.product_details[0].MARQUE}</p>
-            <p>TAILLE : {offer.product_details[1].TAILLE}</p>
-            <p>ÉTAT : {offer.product_details[2].ÉTAT}</p>
-            <p>COULEUR : {offer.product_details[3].COULEUR}</p>
-            <p>EMPLACEMENT : {offer.product_details[4].EMPLACEMENT}</p>
-            <p>
-              MODES DE PAIEMENT :{" "}
-              {offer.product_details[5]["MODES DE PAIEMENT"]}
-            </p> */
-}

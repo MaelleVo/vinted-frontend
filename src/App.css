@@ -113,64 +113,6 @@ input:focus {
 }
 /* Toggle */
 
-.navbar .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-.navbar .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.navbar .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.navbar .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.navbar input:checked + .slider {
-  background-color: #2196f3;
-}
-
-.navbar input:focus .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-.navbar input:checked .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-.navbar .slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
 /* SECTION START SELLING */
 
 .start-selling {
@@ -316,7 +258,13 @@ input:focus {
   font-weight: bold;
 }
 
-.offer-section .picture-product {
+.offer-picture {
+  height: 600px;
+  width: 450px;
+  object-fit: cover;
+}
+
+.picture-product {
   height: 600px;
   width: 450px;
   object-fit: cover;
@@ -533,7 +481,7 @@ form input:nth-child(-n + 3) {
 .form-publish .add-picture {
   display: flex;
   justify-content: center;
-
+  align-items: center;
   border: #c7c7c7 1px solid;
   height: 300px;
 }
@@ -541,7 +489,7 @@ form input:nth-child(-n + 3) {
 .form-publish .inside-border {
   border: 1px #ebedee dashed;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 95%;
   height: 80%;
@@ -563,9 +511,38 @@ form input:nth-child(-n + 3) {
   color: #2cb1bb;
 }
 
-/* .input-picture {
-  display: none;
-} */
+/* Show && Delete Picture Upload */
+
+.upload-picture-show {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.upload-picture-show button {
+  position: absolute;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.upload-picture-show img {
+  height: 200px;
+}
+
+textarea {
+  font-family: "Roboto", sans-serif;
+  width: 50%;
+  height: 150px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #c7c7c7;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+}
 
 .form-publish .button-form-publish {
   display: flex;
@@ -581,4 +558,11 @@ form input:nth-child(-n + 3) {
 .button-form-publish button {
   height: 40px;
   font-size: 17px;
+}
+
+/* Required input */
+
+input:required {
+  border: none;
+  border-bottom: #c2225b 1px solid;
 }

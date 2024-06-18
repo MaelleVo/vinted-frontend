@@ -44,11 +44,14 @@ const Home = ({ search }) => {
           return (
             <article className="item-article" key={item._id}>
               <div className="banner-owner">
-                {/* <img
-                  className="img-owner"
-                  src={item.owner.account.avatar.secure_url}
-                  alt="avatar-owner"
-                /> */}
+                {item.owner.account.avatar && (
+                  <img
+                    className="img-owner"
+                    src={item.owner.account.avatar.secure_url}
+                    alt="avatar-owner"
+                  />
+                )}
+
                 <span> {item.owner.account.username} </span>
               </div>
 

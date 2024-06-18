@@ -1,14 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 // Cookies
 import Cookies from "js-cookie";
 
 const Publish = () => {
   const token = Cookies.get("token");
 
+  const navigate = useNavigate();
+
   const [picture, setPicture] = useState(null);
+  const [pictureURL, setPictureURL] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
@@ -16,7 +20,7 @@ const Publish = () => {
   const [color, setColor] = useState("");
   const [condition, setCondition] = useState("");
   const [city, setCity] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [swipe, setSwipe] = useState(false);
 
   const [pictureOnCloudinary, setPictureOnCloudinary] = useState(null);
@@ -24,6 +28,8 @@ const Publish = () => {
   const handlePictureChange = (event) => {
     const value = event.target.files[0];
     setPicture(value);
+    const url = URL.createObjectURL(value);
+    setPictureURL(url);
   };
 
   const handleTitleChange = (event) => {
@@ -71,6 +77,12 @@ const Publish = () => {
     setSwipe(checked);
   };
 
+  const handleRemovePicture = (pictureURL) => {
+    URL.revokeObjectURL(pictureURL);
+    setPicture(null);
+    setPictureURL(null);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -108,12 +120,14 @@ const Publish = () => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       // console.log(response.data.token); // => token here
       //   console.log(token);
-      console.log(formData);
+      // console.log(formData);
       console.log(pictureOnCloudinary);
+      console.log(pictureURL);
       setPictureOnCloudinary(response.data.secure_url);
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -126,18 +140,30 @@ const Publish = () => {
           <h2>Vends ton article</h2>
           <div className="add-picture divider-form">
             <div className="inside-border">
-              <label htmlFor="file" className="label-picture">
-                <i>
-                  <FontAwesomeIcon className="icon-plus" icon="plus" />
-                </i>
-                Ajouter une photo
-              </label>
+              {picture && (
+                <div className="upload-picture-show">
+                  <img src={URL.createObjectURL(picture)} alt="picture" />
+                  <button
+                    onClick={() =>
+                      handleRemovePicture(URL.createObjectURL(picture))
+                    }
+                  >
+                    X
+                  </button>
+                </div>
+              )}
               <input
+                style={{ display: "none" }}
                 type="file"
                 placeholder="Ajoute une photo"
                 className="input-picture"
+                id="file-upload"
                 onChange={handlePictureChange}
               />
+              <label htmlFor="file-upload" className="label-picture">
+                <FontAwesomeIcon className="icon-plus" icon="plus" />
+                Ajouter une photo
+              </label>
             </div>
           </div>
           <div className="divider-form">
@@ -149,17 +175,17 @@ const Publish = () => {
                 placeholder="ex: Chemise Sézane verte"
                 value={title}
                 onChange={handleTitleChange}
+                required
               />
             </label>
             <label htmlFor="description">
               Décris ton article
-              <input
+              <textarea
                 type="text"
                 name="description"
                 placeholder="ex: porté quelques fois, taille correctement"
                 value={description}
                 onChange={handleDescriptionChange}
-                style={{ height: "100px" }}
               />
             </label>
           </div>
@@ -219,11 +245,13 @@ const Publish = () => {
             <label htmlFor="price">
               Prix
               <input
-                type="text"
+                style={{ color: "#c7c7c7" }}
+                type="number"
                 name="price"
                 placeholder="0,00€"
                 value={price}
                 onChange={handlePriceChange}
+                required
               />
             </label>
             <div className="checkbox-div">
@@ -240,15 +268,9 @@ const Publish = () => {
             </div>
           </div>
           <div className="button-form-publish">
-            <Link to="/">
-              <button
-                type="submit"
-                value="Submit"
-                style={{ cursor: "pointer" }}
-              >
-                Ajouter
-              </button>
-            </Link>
+            <button type="submit" value="Submit" style={{ cursor: "pointer" }}>
+              Ajouter
+            </button>
           </div>
         </form>
       </div>

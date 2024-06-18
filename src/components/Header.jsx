@@ -1,3 +1,4 @@
+// import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Cookies from "js-cookie";
@@ -62,13 +63,12 @@ const Header = ({ search, setSearch }) => {
           </Link>
         )}
       </div>
-      <div>
-        <label htmlFor="switch" className="switch">
+      {/* <div className="toogle-div">
+        <label htmlFor="toggle-label" className="toggle-label">
           Trier par:
-          <input id="checkbox" type="checkbox" name="toggle" />
-          <span className="slider round"></span>
+          <input type="checkbox" className="toggle-input" />
         </label>
-      </div>
+      </div> */}
     </>
   );
 };
