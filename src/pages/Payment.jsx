@@ -19,6 +19,9 @@ const Payment = () => {
     amount: amount,
     mode: "payment",
     currency: "eur",
+    appearance: {
+      theme: "stripe",
+    },
   };
 
   return (

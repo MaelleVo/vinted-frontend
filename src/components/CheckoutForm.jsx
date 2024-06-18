@@ -8,12 +8,8 @@ const CheckoutForm = ({ amount }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const appearance = {
-    theme: "stripe",
-  };
-
   const stripe = useStripe();
-  const elements = useElements(appearance);
+  const elements = useElements();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,27 +18,7 @@ const CheckoutForm = ({ amount }) => {
     console.log(amount);
 
     try {
-      const cardElement = elements.getElement(CardElement, {
-        style: {
-          base: {
-            iconColor: "#c4f0ff",
-            color: "#fff",
-            fontWeight: "500",
-            fontSize: "16px",
-            fontSmoothing: "antialiased",
-            ":-webkit-autofill": {
-              color: "#fce883",
-            },
-            "::placeholder": {
-              color: "#87BBFD",
-            },
-          },
-          invalid: {
-            iconColor: "#FFC7EE",
-            color: "#FFC7EE",
-          },
-        },
-      });
+      const cardElement = elements.getElement(CardElement);
       const stripeResponse = await stripe.createToken(cardElement);
 
       if (stripeResponse.error) {
