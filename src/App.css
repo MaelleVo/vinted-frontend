@@ -629,7 +629,7 @@ input:required {
   align-items: center;
   height: 400px;
   width: 600px;
-  border: red solid 1px;
+  background-color: white;
 }
 
 /* .form-payment form {
@@ -644,10 +644,26 @@ input:required {
   text-align: center;
 }
 
-/* .form-payment .button-buy {
+.form-payment .button-buy {
   width: 500px;
   height: 60px;
   background-color: #2cb1ba;
   color: white;
-  margin-top: 100px;
-} */
+  border: none;
+  border-radius: 5px;
+}
+
+.stripe-elements-wrapper {
+  width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.StripeElement {
+  height: 300px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  margin-bottom: 10px;
+}

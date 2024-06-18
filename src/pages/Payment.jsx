@@ -46,15 +46,13 @@ const Payment = () => {
           </div>
           <p className="text">
             Il ne vous reste plus qu'un étape pour vous offrir{" "}
-            <span>{title}</span> 😍. Vous allez payer <span>{total}</span>{" "}
+            <span>{title}</span> 😍. Vous allez payer <span>{total}</span> €
             (frais de protection et frais de port inclus)
           </p>
         </div>
-        <div>
-          <Elements stripe={stripePromise} option={dataPayment}>
-            <CheckoutForm amount={total} />
-          </Elements>
-        </div>
+        <Elements stripe={stripePromise} option={dataPayment}>
+          <CheckoutForm amount={total} />
+        </Elements>
       </section>
     </div>
   );

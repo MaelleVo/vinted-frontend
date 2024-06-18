@@ -8,8 +8,12 @@ const CheckoutForm = ({ amount }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  const appearance = {
+    theme: "stripe",
+  };
+
   const stripe = useStripe();
-  const elements = useElements();
+  const elements = useElements(appearance);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,7 +22,27 @@ const CheckoutForm = ({ amount }) => {
     console.log(amount);
 
     try {
-      const cardElement = elements.getElement(CardElement);
+      const cardElement = elements.getElement(CardElement, {
+        style: {
+          base: {
+            iconColor: "#c4f0ff",
+            color: "#fff",
+            fontWeight: "500",
+            fontSize: "16px",
+            fontSmoothing: "antialiased",
+            ":-webkit-autofill": {
+              color: "#fce883",
+            },
+            "::placeholder": {
+              color: "#87BBFD",
+            },
+          },
+          invalid: {
+            iconColor: "#FFC7EE",
+            color: "#FFC7EE",
+          },
+        },
+      });
       const stripeResponse = await stripe.createToken(cardElement);
 
       if (stripeResponse.error) {
@@ -85,16 +109,18 @@ const CheckoutForm = ({ amount }) => {
     <p>Paiement effectué</p>
   ) : (
     <div className="form-payment">
-      <form onSubmit={handleSubmit}>
-        <CardElement />
-        <input
-          className="button-buy"
-          type="submit"
-          value="Acheter"
-          disabled={isPaying}
-        />
-        <p>{errorMessage}</p>
-      </form>
+      <div className="stripe-elements-wrapper">
+        <form onSubmit={handleSubmit}>
+          <CardElement className="StripeElement" />
+          <input
+            className="button-buy"
+            type="submit"
+            value="Acheter"
+            disabled={isPaying}
+          />
+          <p>{errorMessage}</p>
+        </form>
+      </div>
     </div>
   );
 };
