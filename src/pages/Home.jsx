@@ -6,6 +6,8 @@ const Home = ({ search }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
+  const backgroundPicture = { backgroundImage: "url(bcg-home.jpg)" };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,7 +28,7 @@ const Home = ({ search }) => {
     <p>En cours de chargement ...</p>
   ) : (
     <div>
-      <section className="start-selling">
+      <section className="start-selling" style={backgroundPicture}>
         <div className="container square-start-selling">
           <p>Prêts à faire du tri dans vos placards ?</p>
           <button>Commencer à vendre</button>
