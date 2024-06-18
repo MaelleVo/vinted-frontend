@@ -14,6 +14,7 @@ import Offer from "./pages/Offer";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Publish from "./pages/Publish";
+import Payment from "./pages/Payment";
 
 // Components
 import Header from "./components/Header";
@@ -34,6 +35,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/publish" element={<Publish />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="*" element={<p>Error 404 : Can't find this page. </p>} />
         </Routes>
       </Router>
