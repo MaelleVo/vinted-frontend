@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Home = ({ search }) => {
+  const token = Cookies.get("token");
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -31,7 +33,15 @@ const Home = ({ search }) => {
       <section className="start-selling" style={backgroundPicture}>
         <div className="container square-start-selling">
           <p>Prêts à faire du tri dans vos placards ?</p>
-          <button>Commencer à vendre</button>
+          {token ? (
+            <Link to="/publish">
+              <button>Commencer à vendre</button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button>Commencer à vendre</button>
+            </Link>
+          )}
         </div>
       </section>
       <div className="middle-tear-paper">
