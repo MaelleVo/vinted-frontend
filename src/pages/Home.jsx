@@ -6,7 +6,7 @@ const Home = ({ search }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const backgroundPicture = { backgroundImage: "url(bcg-home.jpg)" };
+  const backgroundPicture = { backgroundImage: "url(/bcg-home.jpg)" };
 
   useEffect(() => {
     const fetchData = async () => {
