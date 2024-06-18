@@ -115,7 +115,7 @@ input:focus {
 /* SECTION START SELLING */
 
 .start-selling {
-  background-image: url("/bcg-home.jpg");
+  background-image: url("bcg-home.jpg");
   height: 460px;
   background-size: cover;
   margin-top: 30px;
@@ -293,12 +293,17 @@ input:focus {
   border-radius: 50%;
 }
 
+.button-buy {
+  display: flex;
+  justify-content: center;
+}
+
 .product-description button {
-  width: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
   height: 40px;
+  width: 300px;
   background-color: #2cb1ba;
   color: white;
   border: none;
