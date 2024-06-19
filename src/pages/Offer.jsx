@@ -81,13 +81,7 @@ const Offer = () => {
                 <button>Acheter</button>
               </Link>
             ) : (
-              <Link
-                to="/login"
-                state={{
-                  title: offer.product_name,
-                  amount: offer.product_price,
-                }}
-              >
+              <Link to="/login">
                 <button>Acheter</button>
               </Link>
             )}

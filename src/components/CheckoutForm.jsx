@@ -1,100 +1,69 @@
-import axios from "axios";
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import {
+  useStripe,
+  useElements,
+  PaymentElement,
+} from "@stripe/react-stripe-js";
 
-const CheckoutForm = ({ amount }) => {
-  const [success, setSuccess] = useState(false);
-  const [isPaying, setIsPaying] = useState(false);
+import axios from "axios";
 
-  const [errorMessage, setErrorMessage] = useState("");
+const CheckoutForm = ({ title, amount }) => {
+  const [isPaid, setIsPaid] = useState(false);
 
   const stripe = useStripe();
   const elements = useElements();
 
+  // console.log(totalPrice);
+
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsPaying(true);
-
-    console.log(amount);
-
     try {
-      const cardElement = elements.getElement(CardElement);
-      const stripeResponse = await stripe.createToken(cardElement);
-
-      if (stripeResponse.error) {
-        console.log("Stripe Error : ", stripeResponse.error.message);
-        setIsPaying(false);
+      event.preventDefault();
+      if (elements == null) {
         return;
       }
 
-      //   console.log(stripeResponse);
-
-      const stripeToken = stripeResponse.token.id;
-      console.log("Stripe Token : ", stripeToken);
-
-      const dataPayment = {
-        token: stripeToken,
-        amount: amount,
-        mode: "payment",
-        currency: "eur",
-      };
-
-      const { error: submitError } = await elements.submit();
-
-      if (submitError) {
-        // console.log(submitError);
-        setErrorMessage(submitError.message);
-        return;
-      }
-
+      await elements.submit();
       const response = await axios.post(
         "https://lereacteur-vinted-api.herokuapp.com/v2/payment",
-        dataPayment
+        {
+          amount: amount,
+          title: title,
+        }
       );
-      console.log("Response Data : ", response.data);
 
       const clientSecret = response.data.client_secret;
 
-      // Requête à Stripe pour valider le paiement
-      const { error, paymentIntent } = await stripe.confirmPayment({
-        clientSecret: clientSecret,
-        elements: elements,
+      const stripeResponse = await stripe.confirmPayment({
+        elements,
+        clientSecret,
         confirmParams: {
           return_url: "http://localhost:5173/",
         },
-        // Bloque la redirections
         redirect: "if_required",
       });
 
-      if (error) {
-        setErrorMessage(error.message);
+      if (stripeResponse.error) {
+        alert("Une erreur est survenue, veuillez réssayer.");
       }
 
-      if (paymentIntent.status === "succeeded") {
-        setSuccess(true);
-      } else {
-        console.log("Payment failed:", response.data);
+      if (stripeResponse.paymentIntent.status === "succeeded") {
+        setIsPaid(true);
       }
     } catch (error) {
-      console.log("Payment error : ", error.message);
+      console.log(error.message);
     }
-    setIsPaying(false);
   };
 
-  return success ? (
-    <p>Paiement effectué</p>
+  return isPaid ? (
+    <p>Merci pour votre achat.</p>
   ) : (
     <div className="form-payment">
       <div className="stripe-elements-wrapper">
         <form onSubmit={handleSubmit}>
-          <CardElement className="StripeElement" />
-          <input
-            className="button-buy"
-            type="submit"
-            value="Acheter"
-            disabled={isPaying}
-          />
-          <p>{errorMessage}</p>
+          <PaymentElement className="StripeElement" />
+          <button type="submit" disabled={!stripe}>
+            Pay
+          </button>
         </form>
       </div>
     </div>

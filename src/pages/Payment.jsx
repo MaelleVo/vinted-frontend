@@ -16,7 +16,7 @@ const Payment = () => {
   const total = delivery + insuranceBuyer + amount;
 
   const dataPayment = {
-    amount: amount,
+    amount: Number((amount * 100).toFixed(0)),
     mode: "payment",
     currency: "eur",
     appearance: {
@@ -53,8 +53,8 @@ const Payment = () => {
             (frais de protection et frais de port inclus)
           </p>
         </div>
-        <Elements stripe={stripePromise} option={dataPayment}>
-          <CheckoutForm amount={total} />
+        <Elements stripe={stripePromise} options={dataPayment}>
+          <CheckoutForm title={title} amount={total} />
         </Elements>
       </section>
     </div>

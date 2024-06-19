@@ -627,7 +627,7 @@ input:required {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 300px;
   width: 600px;
   background-color: white;
 }
@@ -654,13 +654,13 @@ input:required {
 }
 
 .stripe-elements-wrapper {
-  width: 600px;
+  width: 400px;
   display: flex;
   justify-content: center;
 }
 
 .StripeElement {
-  height: 300px;
+  height: 250px;
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
