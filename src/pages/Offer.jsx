@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Offer = () => {
+  const token = Cookies.get("token");
   const { id } = useParams();
   // console.log(params);
 
@@ -68,12 +70,27 @@ const Offer = () => {
             <span>{offer.owner.account.username}</span>
           </div>
           <div className="button-buy">
-            <Link
-              to="/payment"
-              state={{ title: offer.product_name, amount: offer.product_price }}
-            >
-              <button>Acheter</button>
-            </Link>
+            {token ? (
+              <Link
+                to="/payment"
+                state={{
+                  title: offer.product_name,
+                  amount: offer.product_price,
+                }}
+              >
+                <button>Acheter</button>
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                state={{
+                  title: offer.product_name,
+                  amount: offer.product_price,
+                }}
+              >
+                <button>Acheter</button>
+              </Link>
+            )}
           </div>
         </aside>
       </section>
